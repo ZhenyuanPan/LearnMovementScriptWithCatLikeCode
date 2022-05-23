@@ -136,13 +136,13 @@ GameObject:
   - component: {fileID: 20253988}
   - component: {fileID: 20253987}
   - component: {fileID: 20253986}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &20253986
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -171,12 +171,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &20253988
 TrailRenderer:
   serializedVersion: 2
@@ -354,7 +363,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61406
+  m_Name: pb_Mesh15226
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -526,13 +535,13 @@ GameObject:
   - component: {fileID: 53163517}
   - component: {fileID: 53163516}
   - component: {fileID: 53163515}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &53163515
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -561,12 +570,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &53163517
 TrailRenderer:
   serializedVersion: 2
@@ -753,13 +771,13 @@ GameObject:
   - component: {fileID: 67928630}
   - component: {fileID: 67928629}
   - component: {fileID: 67928628}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &67928628
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -788,12 +806,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &67928630
 TrailRenderer:
   serializedVersion: 2
@@ -1054,7 +1081,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61420
+  m_Name: pb_Mesh15270
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1217,7 +1244,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61416
+  m_Name: pb_Mesh15202
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1481,7 +1508,7 @@ GameObject:
   - component: {fileID: 293531200}
   - component: {fileID: 293531199}
   - component: {fileID: 293531198}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1516,12 +1543,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &293531200
 TrailRenderer:
   serializedVersion: 2
@@ -1708,13 +1744,13 @@ GameObject:
   - component: {fileID: 357211047}
   - component: {fileID: 357211046}
   - component: {fileID: 357211045}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &357211045
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1743,12 +1779,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &357211047
 TrailRenderer:
   serializedVersion: 2
@@ -1926,7 +1971,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61410
+  m_Name: pb_Mesh15166
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2089,7 +2134,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61414
+  m_Name: pb_Mesh15180
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2261,13 +2306,13 @@ GameObject:
   - component: {fileID: 473194456}
   - component: {fileID: 473194455}
   - component: {fileID: 473194454}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &473194454
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2296,12 +2341,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &473194456
 TrailRenderer:
   serializedVersion: 2
@@ -2479,7 +2533,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61434
+  m_Name: pb_Mesh15406
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2651,13 +2705,13 @@ GameObject:
   - component: {fileID: 613803101}
   - component: {fileID: 613803100}
   - component: {fileID: 613803099}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &613803099
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2686,12 +2740,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &613803101
 TrailRenderer:
   serializedVersion: 2
@@ -2878,13 +2941,13 @@ GameObject:
   - component: {fileID: 659613455}
   - component: {fileID: 659613454}
   - component: {fileID: 659613453}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &659613453
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2913,12 +2976,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &659613455
 TrailRenderer:
   serializedVersion: 2
@@ -3105,13 +3177,13 @@ GameObject:
   - component: {fileID: 712526920}
   - component: {fileID: 712526919}
   - component: {fileID: 712526918}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &712526918
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3140,12 +3212,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &712526920
 TrailRenderer:
   serializedVersion: 2
@@ -3323,7 +3404,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61442
+  m_Name: pb_Mesh15354
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3486,7 +3567,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61426
+  m_Name: pb_Mesh15310
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3658,13 +3739,13 @@ GameObject:
   - component: {fileID: 800020734}
   - component: {fileID: 800020733}
   - component: {fileID: 800020732}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &800020732
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3693,12 +3774,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &800020734
 TrailRenderer:
   serializedVersion: 2
@@ -3885,13 +3975,13 @@ GameObject:
   - component: {fileID: 832055688}
   - component: {fileID: 832055687}
   - component: {fileID: 832055686}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &832055686
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3920,12 +4010,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &832055688
 TrailRenderer:
   serializedVersion: 2
@@ -4112,13 +4211,13 @@ GameObject:
   - component: {fileID: 864807762}
   - component: {fileID: 864807761}
   - component: {fileID: 864807760}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &864807760
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4147,12 +4246,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &864807762
 TrailRenderer:
   serializedVersion: 2
@@ -4339,13 +4447,13 @@ GameObject:
   - component: {fileID: 967793840}
   - component: {fileID: 967793839}
   - component: {fileID: 967793838}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &967793838
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4374,12 +4482,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &967793840
 TrailRenderer:
   serializedVersion: 2
@@ -4566,13 +4683,13 @@ GameObject:
   - component: {fileID: 990069925}
   - component: {fileID: 990069924}
   - component: {fileID: 990069923}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &990069923
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4601,12 +4718,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &990069925
 TrailRenderer:
   serializedVersion: 2
@@ -4793,13 +4919,13 @@ GameObject:
   - component: {fileID: 995482862}
   - component: {fileID: 995482861}
   - component: {fileID: 995482860}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &995482860
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4828,12 +4954,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &995482862
 TrailRenderer:
   serializedVersion: 2
@@ -5020,13 +5155,13 @@ GameObject:
   - component: {fileID: 1035205583}
   - component: {fileID: 1035205582}
   - component: {fileID: 1035205581}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1035205581
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5055,12 +5190,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &1035205583
 TrailRenderer:
   serializedVersion: 2
@@ -5238,7 +5382,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61354
+  m_Name: pb_Mesh15250
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5401,7 +5545,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61444
+  m_Name: pb_Mesh15370
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5564,7 +5708,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61418
+  m_Name: pb_Mesh15210
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5736,13 +5880,13 @@ GameObject:
   - component: {fileID: 1210100956}
   - component: {fileID: 1210100955}
   - component: {fileID: 1210100954}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1210100954
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5771,12 +5915,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &1210100956
 TrailRenderer:
   serializedVersion: 2
@@ -5954,7 +6107,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61432
+  m_Name: pb_Mesh15382
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6126,13 +6279,13 @@ GameObject:
   - component: {fileID: 1223149045}
   - component: {fileID: 1223149044}
   - component: {fileID: 1223149043}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1223149043
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6161,12 +6314,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &1223149045
 TrailRenderer:
   serializedVersion: 2
@@ -6353,13 +6515,13 @@ GameObject:
   - component: {fileID: 1250656708}
   - component: {fileID: 1250656707}
   - component: {fileID: 1250656706}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1250656706
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6388,12 +6550,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &1250656708
 TrailRenderer:
   serializedVersion: 2
@@ -6571,7 +6742,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61412
+  m_Name: pb_Mesh15178
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6734,7 +6905,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61430
+  m_Name: pb_Mesh15280
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6906,13 +7077,13 @@ GameObject:
   - component: {fileID: 1446986431}
   - component: {fileID: 1446986430}
   - component: {fileID: 1446986429}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1446986429
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6941,12 +7112,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!96 &1446986431
 TrailRenderer:
   serializedVersion: 2
@@ -7124,7 +7304,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61422
+  m_Name: pb_Mesh15252
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7287,7 +7467,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61436
+  m_Name: pb_Mesh15394
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7450,7 +7630,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61424
+  m_Name: pb_Mesh15298
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7613,7 +7793,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61440
+  m_Name: pb_Mesh15342
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7776,7 +7956,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61408
+  m_Name: pb_Mesh15234
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7939,7 +8119,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61438
+  m_Name: pb_Mesh15334
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8102,7 +8282,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-61428
+  m_Name: pb_Mesh15314
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8287,13 +8467,13 @@ GameObject:
   - component: {fileID: 2262514195306564287}
   - component: {fileID: 2262514195306564284}
   - component: {fileID: 2262514195306564286}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &2262514195306564274
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8353,12 +8533,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10caeca9cf5a149a0dcfec0cf7a726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   maxAcceleration: 10
   jumpHeight: 2
   maxAirJumps: 1
   maxAirAcceleration: 0
-  maxGroundAngle: 90
+  maxGroundAngle: 50
+  maxStairsAngle: 50
+  maxSnapSpeed: 10
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 51
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!4 &2262514195306564285
 Transform:
   m_ObjectHideFlags: 0
@@ -8842,7 +9031,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215520550203292114
 Transform:
   m_ObjectHideFlags: 0
@@ -9227,7 +9416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &7215520550237556640
 GameObject:
   m_ObjectHideFlags: 0
@@ -9247,7 +9436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215520550237556651
 Transform:
   m_ObjectHideFlags: 0
@@ -9941,7 +10130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &7215520550271972544
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10276,7 +10465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215520550271972558
 Transform:
   m_ObjectHideFlags: 0
@@ -10655,7 +10844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &7215520550676878560
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11246,7 +11435,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215520550791378227
 Transform:
   m_ObjectHideFlags: 0
@@ -11946,7 +12135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215520551092622454
 Transform:
   m_ObjectHideFlags: 0
@@ -12292,7 +12481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215520551315320349
 Transform:
   m_ObjectHideFlags: 0
@@ -12710,7 +12899,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215520551706837082
 Transform:
   m_ObjectHideFlags: 0
@@ -13095,7 +13284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &7215520551747114856
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -13129,7 +13318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215520551747114900
 Transform:
   m_ObjectHideFlags: 0
@@ -13809,7 +13998,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &7215520551984861224
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14144,7 +14333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215520551984861270
 Transform:
   m_ObjectHideFlags: 0
@@ -14529,7 +14718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215520552054524438
 Transform:
   m_ObjectHideFlags: 0
@@ -14936,7 +15125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215520552091153304
 Transform:
   m_ObjectHideFlags: 0
@@ -15321,7 +15510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215520552190313665
 Transform:
   m_ObjectHideFlags: 0
@@ -15613,7 +15802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215520552191734170
 Transform:
   m_ObjectHideFlags: 0
@@ -15998,4 +16187,4 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0

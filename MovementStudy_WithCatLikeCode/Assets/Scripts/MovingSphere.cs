@@ -21,10 +21,13 @@ public class MovingSphere : MonoBehaviour
     [SerializeField, Range(0f,10f)]
     float jumpHeight = 2f;//跳跃的高度
 
-    //bool onGround; //小球是否在地面的标志值
-
     int groundContactCount; //地面接触点 数量
+
+    int steepContactCount; //陡峭面接触点 数量
+
     bool OnGround => groundContactCount > 0; // 若是地面接触点>0 则OnGround值为true
+
+    bool OnSteep => steepContactCount > 0;// 若是陡峭面接触点>0 则OnSteep值为true
 
     [SerializeField, Range(0,5)]
     int maxAirJumps;//空中多段跳跃次数
@@ -36,10 +39,30 @@ public class MovingSphere : MonoBehaviour
 
     [SerializeField, Range(0f, 90f)]
     float maxGroundAngle = 25f; //最大地面角度
-
-    float minGroundDotProduct;//根据设置的最大地面角度计算点积
+    [SerializeField, Range(0f, 90f)]
+    float maxStairsAngle = 50f; //最大可以攀爬楼梯角度
+    
+    float minGroundDotProduct;//根据设置的最大地面坡度角度计算点积
+    float minStairsDotProduct; //根据设置的最大攀爬楼梯角度 计算点积
 
     Vector3 contactNormal;//接触面的法线
+
+    Vector3 steepNormal;//接触的陡峭面的法线
+
+    int stepsSinceLastGround;//自上一次接触地面之后经历过的物理步数
+    int stepsSinceLastJump; //自从上一次跳跃后经历的物理步数
+
+    [SerializeField, Range(0f,100f)]
+    float maxSnapSpeed = 100f; //保持可以在斜面运动的最大速度
+  
+    [SerializeField, Min(0f)]
+    float probeDistance = 1f;//SnapToGround 效果 的射线检测的距离
+
+    [SerializeField]
+    LayerMask probeMask = -1;//小球可以探索层级 => 在地面上
+    [SerializeField]
+    LayerMask stairsMask = -1;//小球可以探索层级 => 在楼梯上
+   
 
     private void Awake()
     {
@@ -50,29 +73,10 @@ public class MovingSphere : MonoBehaviour
     private void OnValidate()
     {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
+        minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
     }
 
-    /// <summary>
-    /// 检测用户输入 在Update中
-    /// </summary>
-    void Update()
-    {
-        #region 玩家移动输入检测
-        Vector2 playerInput;
-        playerInput.x = 0f;
-        playerInput.y = 0f;
-        playerInput.x = Input.GetAxis("Horizontal");
-        playerInput.y = Input.GetAxis("Vertical");
-        playerInput = Vector2.ClampMagnitude(playerInput, 1f);
-        //期望速度
-        desiredVelocity = new Vector3(playerInput.x, 0, playerInput.y) * maxSpeed;
-        #endregion
-
-        #region 玩家跳跃输入检测
-        desiredJump = Input.GetButtonDown("Jump") | desiredJump;
-        #endregion
-    }
-
+ 
     /// <summary>
     /// 控制刚体速度在 fixupdate中
     /// </summary>
@@ -97,6 +101,43 @@ public class MovingSphere : MonoBehaviour
         ClearState();//清空小球当前状态
     }
 
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        EvaluateCollision(collision);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        EvaluateCollision(collision);
+    }
+
+
+    /// <summary>
+    /// 检测用户输入 在Update中
+    /// </summary>
+    void Update()
+    {
+        #region 玩家移动输入检测
+        Vector2 playerInput;
+        playerInput.x = 0f;
+        playerInput.y = 0f;
+        playerInput.x = Input.GetAxis("Horizontal");
+        playerInput.y = Input.GetAxis("Vertical");
+        playerInput = Vector2.ClampMagnitude(playerInput, 1f);
+        //期望速度
+        desiredVelocity = new Vector3(playerInput.x, 0, playerInput.y) * maxSpeed;
+        #endregion
+
+        #region 玩家跳跃输入检测
+        desiredJump = Input.GetButtonDown("Jump") | desiredJump;
+        #endregion
+
+        this.GetComponent<Renderer>().material.SetColor("_Color", OnGround ? Color.black : Color.white);
+
+    }
+
+
     /// <summary>
     /// 清空小球当前状态函数
     /// 包含设置接触地面点 为 0, 接触面法线为0
@@ -104,7 +145,9 @@ public class MovingSphere : MonoBehaviour
     void ClearState() 
     {
         groundContactCount = 0;
+        steepContactCount = 0;
         contactNormal = Vector3.zero;
+        steepNormal = Vector3.zero;
     }
 
     /// <summary>
@@ -112,11 +155,21 @@ public class MovingSphere : MonoBehaviour
     /// </summary>
     void UpdateState() 
     {
-        //因为碰撞等因素, 也会影响物体的刚体速度。所以在影响刚体速度之前要使我们的velocity = 小球刚体的速度
-        velocity = body.velocity;
-        if (OnGround)
+        stepsSinceLastGround += 1;//在下一次落地之前, 没经历一次phsics step都会使其+1
+        stepsSinceLastJump += 1;//在下一次跳跃之前, 每经历一次phsics step都会使该变量+1
+        velocity = body.velocity; //因为碰撞等因素, 也会影响物体的刚体速度。所以在影响刚体速度之前要使我们的velocity = 小球刚体的速度
+        if (OnGround || SnapToGround() || CheckSteepContacts())//注意||符号的执行逻辑, 如果OnGround=true则跳过||后的语句,直接进入下面的语句。如果||左边为flase，则会执行||右边的语句,然后得出||结果
         {
-            jumpPhase = 0;
+            stepsSinceLastGround = 0; // 如果落地了, 则设置steps数为0
+            /*
+             * 小球获得跳跃速度的时候 stepSinceLastJump =1, 
+             * 但是小球并没有真正的移动，小球位置因为跳跃位置移动是在step>1的物理帧中。
+             * 这里的意思就是,当小球接受到跳跃指令后, 在真正移动的物理帧中如果碰到了地面 此时才能把jumpPhase(当前连跳次数)设置为0
+             */
+            if (stepsSinceLastJump > 1) 
+            {
+                jumpPhase = 0;
+            }
             if (groundContactCount > 1) //如果地面接触点大于1的时候才会处理平均平面的法向量, 因为1的话只接触一个面, 自然就是该面的法向量
             {
                 contactNormal.Normalize(); //标准化这些接触点法向量的合集, 得到平均平面的法向量
@@ -134,32 +187,40 @@ public class MovingSphere : MonoBehaviour
     /// </summary>
     void Jump() 
     {
-        if (OnGround || jumpPhase < maxAirJumps)
+        Vector3 jumpDirection;
+        if (OnGround)
         {
-            jumpPhase += 1;
-            float jumpSpeed =  Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
-            if (velocity.y>0f)
-            {
-                jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);
-            }
-            #region 竖直跳跃逻辑
-            //velocity.y += jumpSpeed; 
-            #endregion
-
-            #region 背离接触面跳跃逻辑
-            velocity += contactNormal * jumpSpeed;
-            #endregion
+            jumpDirection = contactNormal;
         }
-    }
+        else if (OnSteep)
+        {
+            Debug.Log("InOnSteep");
+            jumpDirection = steepNormal;
+            jumpPhase = 0;
+        }
+        else if (maxAirJumps>0 && jumpPhase <= maxAirJumps)
+        {
+            if (jumpPhase == 0)
+            {
+                jumpPhase = 1;
+            }
+            jumpDirection = contactNormal;
+        }
+        else
+        {
+            return;
+        }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        EvaluateCollision(collision);
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        EvaluateCollision(collision);
+        stepsSinceLastJump = 0;
+        jumpPhase += 1;
+        float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+        jumpDirection = (jumpDirection + Vector3.up).normalized;//爬墙跳
+        float alignedSpeed = Vector3.Dot(velocity, jumpDirection); //把Velocity 映射到jumpDir方向之后的 大小
+        if (alignedSpeed > 0f)
+        {
+            jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0f);
+        }
+        velocity += jumpDirection * jumpSpeed;
     }
 
     /// <summary>
@@ -168,15 +229,21 @@ public class MovingSphere : MonoBehaviour
     /// <param name="collision"></param>
     void EvaluateCollision(Collision collision) 
     {
+        float minDot = GetMinDot(collision.gameObject.layer);
         for (int i = 0; i < collision.contactCount; i++)
         {
             Vector3 normal = collision.GetContact(i).normal;
 
-            if (normal.y >= minGroundDotProduct)
+            if (normal.y >= minDot)
             {
                 //onGround = true;
                 groundContactCount += 1; //地面接触点每处理一个就需要+1
                 contactNormal += normal;
+            }
+            else if (normal.y > - 0.01f) //越陡, 则normal.y越接近于0
+            {
+                steepContactCount += 1;
+                steepNormal += normal;
             }
         }
     }
@@ -212,5 +279,77 @@ public class MovingSphere : MonoBehaviour
         velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
     }
 
+
+    /// <summary>
+    /// 粘连在地面上
+    /// </summary>
+    /// <returns></returns>
+    bool SnapToGround() 
+    {
+        if (stepsSinceLastGround > 1 || stepsSinceLastJump <= 2)
+        {
+            return false;
+        }
+
+        float speed = velocity.magnitude;
+        if (speed > maxSnapSpeed) 
+        {
+            return false;
+        }
+
+        if (!Physics.Raycast(body.position, Vector3.down, out RaycastHit hit,probeDistance, probeMask))
+        {
+            return false;
+        }
+
+        if (hit.normal.y < GetMinDot(hit.collider.gameObject.layer))
+        {
+            return false;
+        }
+
+        groundContactCount = 1;
+        contactNormal = hit.normal;
+        float dot = Vector3.Dot(velocity, hit.normal);
+        /*
+         * 把速度投影到跟地面方向一致, 然后保持之前的速度。
+         */
+        if (dot > 0f)
+        {
+            velocity = (velocity - hit.normal * dot).normalized * speed;
+        }
+        return true;
+    }
+
+
+    /// <summary>
+    /// 根据layer层, 采用哪个点积(地面or楼梯)
+    /// 如果layer形参 包含 starisMask层，则 (stairsMask & (1<<layer))！=0
+    /// </summary>
+    /// <param name="layer"></param>
+    /// <returns></returns>
+    float GetMinDot(int layer) 
+    {
+        return (stairsMask & (1<<layer)) == 0 ? minGroundDotProduct : minStairsDotProduct;
+    }
+
+    /// <summary>
+    /// 它返回的是是否把小球接触的steepcontect 转换成一个 虚拟的groundContact
+    /// </summary>
+    /// <returns></returns>
+    bool CheckSteepContacts() 
+    {
+        if (steepContactCount >1)
+        {
+            steepNormal.Normalize();
+            if (steepNormal.y >= minGroundDotProduct)//如果综合起来steep contact的坡度比视作地面的坡度平摊。
+            {
+                steepContactCount = 0;
+                groundContactCount = 1;
+                contactNormal = steepNormal;
+                return true;
+            }
+        }
+        return false;
+    }
 }
  

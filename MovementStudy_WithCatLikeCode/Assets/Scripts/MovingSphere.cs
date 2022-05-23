@@ -139,21 +139,9 @@ public class MovingSphere : MonoBehaviour
 
 
     /// <summary>
-    /// 清空小球当前状态函数
-    /// 包含设置接触地面点 为 0, 接触面法线为0
-    /// </summary>
-    void ClearState() 
-    {
-        groundContactCount = 0;
-        steepContactCount = 0;
-        contactNormal = Vector3.zero;
-        steepNormal = Vector3.zero;
-    }
-
-    /// <summary>
     /// 多段跳方法
     /// </summary>
-    void UpdateState() 
+    void UpdateState()
     {
         stepsSinceLastGround += 1;//在下一次落地之前, 没经历一次phsics step都会使其+1
         stepsSinceLastJump += 1;//在下一次跳跃之前, 每经历一次phsics step都会使该变量+1
@@ -166,7 +154,7 @@ public class MovingSphere : MonoBehaviour
              * 但是小球并没有真正的移动，小球位置因为跳跃位置移动是在step>1的物理帧中。
              * 这里的意思就是,当小球接受到跳跃指令后, 在真正移动的物理帧中如果碰到了地面 此时才能把jumpPhase(当前连跳次数)设置为0
              */
-            if (stepsSinceLastJump > 1) 
+            if (stepsSinceLastJump > 1)
             {
                 jumpPhase = 0;
             }
@@ -175,17 +163,39 @@ public class MovingSphere : MonoBehaviour
                 contactNormal.Normalize(); //标准化这些接触点法向量的合集, 得到平均平面的法向量
             }
         }
-        else 
+        else
         {
             contactNormal = Vector3.up;//在空中的话自然向上跳跃。
         }
+    }
+
+
+    /// <summary>
+    /// 在接触平面上投射小球速度
+    /// </summary>
+    void AdjustVelocity()
+    {
+        //当前小球所接触平面投射过来的x, z轴
+        Vector3 xAxis = ProectOnContactPlane(Vector3.right).normalized;
+        Vector3 zAxis = ProectOnContactPlane(Vector3.forward).normalized;
+        //小球投射在当前平面上的x,z轴速度
+        float currentX = Vector3.Dot(velocity, xAxis);
+        float currentZ = Vector3.Dot(velocity, zAxis);
+
+        //根据加速度 计算 新的瞬时速度（x，z轴）。
+        float acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
+        float maxSpeedChange = acceleration * Time.deltaTime;
+        float newX = Mathf.MoveTowards(currentX, desiredVelocity.x, maxSpeedChange);
+        float newZ = Mathf.MoveTowards(currentZ, desiredVelocity.z, maxSpeedChange);
+        //根据新的瞬时速度和当前速度的差 也就是速度的增量（x，z轴） 调整当前速度
+        velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
     }
 
     /// <summary>
     /// 跳跃方法
     /// 根据公式 Vy = sqrt(-2gh)
     /// </summary>
-    void Jump() 
+    void Jump()
     {
         Vector3 jumpDirection;
         if (OnGround)
@@ -198,7 +208,7 @@ public class MovingSphere : MonoBehaviour
             jumpDirection = steepNormal;
             jumpPhase = 0;
         }
-        else if (maxAirJumps>0 && jumpPhase <= maxAirJumps)
+        else if (maxAirJumps > 0 && jumpPhase <= maxAirJumps)
         {
             if (jumpPhase == 0)
             {
@@ -222,6 +232,20 @@ public class MovingSphere : MonoBehaviour
         }
         velocity += jumpDirection * jumpSpeed;
     }
+
+
+    /// <summary>
+    /// 清空小球当前状态函数
+    /// 包含设置接触地面点 为 0, 接触面法线为0
+    /// </summary>
+    void ClearState() 
+    {
+        groundContactCount = 0;
+        steepContactCount = 0;
+        contactNormal = Vector3.zero;
+        steepNormal = Vector3.zero;
+    }
+
 
     /// <summary>
     /// 处理碰撞点方法
@@ -258,26 +282,6 @@ public class MovingSphere : MonoBehaviour
         return vector - contactNormal * Vector3.Dot(vector,contactNormal);
     }
 
-    /// <summary>
-    /// 在接触平面上投射小球速度
-    /// </summary>
-    void AdjustVelocity() 
-    {
-        //当前小球所接触平面投射过来的x, z轴
-        Vector3 xAxis = ProectOnContactPlane(Vector3.right).normalized;
-        Vector3 zAxis = ProectOnContactPlane(Vector3.forward).normalized;
-        //小球投射在当前平面上的x,z轴速度
-        float currentX = Vector3.Dot(velocity,xAxis);
-        float currentZ = Vector3.Dot(velocity,zAxis);
-
-        //根据加速度 计算 新的瞬时速度（x，z轴）。
-        float acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
-        float maxSpeedChange = acceleration * Time.deltaTime;
-        float newX = Mathf.MoveTowards(currentX, desiredVelocity.x, maxSpeedChange);
-        float newZ = Mathf.MoveTowards(currentZ, desiredVelocity.z, maxSpeedChange);
-        //根据新的瞬时速度和当前速度的差 也就是速度的增量（x，z轴） 调整当前速度
-        velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
-    }
 
 
     /// <summary>

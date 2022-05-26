@@ -62,7 +62,9 @@ public class MovingSphere : MonoBehaviour
     LayerMask probeMask = -1;//小球可以探索层级 => 在地面上
     [SerializeField]
     LayerMask stairsMask = -1;//小球可以探索层级 => 在楼梯上
-   
+
+    [SerializeField]
+    Transform playerInputSpace = default;//用户移动输入空间
 
     private void Awake()
     {
@@ -124,9 +126,22 @@ public class MovingSphere : MonoBehaviour
         playerInput.y = 0f;
         playerInput.x = Input.GetAxis("Horizontal");
         playerInput.y = Input.GetAxis("Vertical");
-        playerInput = Vector2.ClampMagnitude(playerInput, 1f);
+        playerInput = Vector2.ClampMagnitude(playerInput, 1f);//钳主playerInput向量的模长为1, 使其不能输出超过预设的最大速度
         //期望速度
-        desiredVelocity = new Vector3(playerInput.x, 0, playerInput.y) * maxSpeed;
+        if (playerInputSpace)//如果InputSpace被设置了, 则用户的输入, 应从worldspace转变到InputSpace中
+        {
+            Vector3 forward = playerInputSpace.forward;
+            forward.y = 0f;
+            forward.Normalize();
+            Vector3 right = playerInputSpace.right;
+            right.y = 0f;
+            right.Normalize();
+            desiredVelocity = (forward*playerInput.y + right*playerInput.x)*maxSpeed;
+        }
+        else
+        {
+            desiredVelocity = new Vector3(playerInput.x, 0, playerInput.y) * maxSpeed;
+        }
         #endregion
 
         #region 玩家跳跃输入检测

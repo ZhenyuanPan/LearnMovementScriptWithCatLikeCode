@@ -7,8 +7,8 @@ public class OrbitCamera : MonoBehaviour
 {
     [SerializeField]
     Transform focus = default;//摄像机焦点对象
-    Vector3 focusPoint;//摄像机焦点位置
-    Vector3 previousFocusPoint;//摄像机前一个焦点
+    Vector3 focusPoint;//摄像机当前帧焦点位置
+    Vector3 previousFocusPoint;//摄像机上一帧焦点位置
     [SerializeField, Range(1f, 10f)]
     float distance = 5f;//摄像机与焦点的距离
     [SerializeField, Min(0f)]
@@ -26,8 +26,11 @@ public class OrbitCamera : MonoBehaviour
     [SerializeField, Range(0f, 90f)]
     float alignSmoothRange = 45f;//在此角度之前自动调整摄像机都使用线性的旋转速度, 否则全速旋转
     float lastManualRotationTime;//最后一次手动调整镜头的事件
-
     Camera regularCamera;//当前Camera
+
+    Quaternion gravityAlignment = Quaternion.identity;//与重力方向平行但方向相反 的 四元数
+
+    Quaternion orbitRotation;//用来跟踪记录, orbit rotation的四元数
 
     Vector3 CameraHalfExtends //box cast所需要的3dvector属性
     {
@@ -57,21 +60,21 @@ public class OrbitCamera : MonoBehaviour
     {
         regularCamera = this.GetComponent<Camera>();//获取当前Camera组件
         focusPoint = focus.position; //游戏开始时候初始化摄像机位置, 使得摄像机焦点中心对应focus
-        transform.localRotation = Quaternion.Euler(orbitAngles);//摄像机旋转初始化
+        transform.localRotation = orbitRotation = Quaternion.Euler(orbitAngles);//摄像机旋转初始化, 同时链式声明orbitRotation的初始化
+        
     }
     private void LateUpdate()
     {
+        gravityAlignment = Quaternion.FromToRotation(gravityAlignment * Vector3.up, CustomGravity.GetUpAxis(focusPoint)) * gravityAlignment;//每一帧都根据重力的方向平行对齐 新的Up direction。
+
         UpdateFocusPoint();
-        Quaternion lookRotation;
         if (ManualRotation() || AutomaticRotation())//如果发生了手动控制旋转 或者发生了自动调整调整旋转
         {
             ConstrainAngels();//限制旋转角度
-            lookRotation = Quaternion.Euler(orbitAngles);
+            orbitRotation = Quaternion.Euler(orbitAngles);//记录下 初始重力坐标系下的 orbitRotation
         }
-        else
-        {
-            lookRotation = transform.localRotation;//没有发生手动控制旋转, 则直接返回摄像机原来的旋转角度
-        }
+        Quaternion lookRotation = gravityAlignment * orbitRotation;//转换到新的重力坐标系下的 摄像机视角朝向。
+        
         Vector3 lookDirection = lookRotation * Vector3.forward;//z轴方向为默认正方向,也就是vector3.forward), 将四元数左乘该向量, 表示将该向量进行旋转。得到摄像机镜头方向
         Vector3 lookPostion = focusPoint - lookDirection * distance;//根据镜头距离(向量模长)和镜头方向(向量方向)算得摄像机的位置(摄像机初识位置是原点,所以摄像机位置lookPostion=p0+lookVector = lookVecter)
 
@@ -116,11 +119,11 @@ public class OrbitCamera : MonoBehaviour
              * 目前的效果对于小球teleport效果时候, 会是这样的
              * 先是瞬间被拉到 摄像机焦点（focusPoint）到 焦点物体位置targetPoint+焦距半径focusRadius处。然后慢慢焦点居中
              */
-            focusPoint = Vector3.Lerp(targetPoint, focusPoint, t);
+            focusPoint = Vector3.Lerp(targetPoint, focusPoint, t);//给当前帧焦点位置 赋值
         }
         else
         {
-            focusPoint = targetPoint;
+            focusPoint = targetPoint;//给当前帧焦点位置赋值
         }
     }
 
@@ -172,12 +175,9 @@ public class OrbitCamera : MonoBehaviour
         {
             return false;
         }
-
-        //计算上一帧 和当前帧x,z平面上移动的向量。
-        Vector2 movement = new Vector2(
-                focusPoint.x - previousFocusPoint.x,
-                focusPoint.z - previousFocusPoint.z
-            );
+        Vector3 alignedDelta = Quaternion.Inverse(gravityAlignment) * (focusPoint - previousFocusPoint);//将上一帧摄像机焦点位置 和当前帧摄像机焦点位置 的位移 转到新的重力坐标系下
+        //计算上一帧 和当前帧x,z平面(当前重力坐标系下的xz平面)上移动的向量。
+        Vector2 movement = new Vector2(alignedDelta.x, alignedDelta.z);
         float movementDeltaSqr = movement.sqrMagnitude;//计算上一帧和当前帧位移向量大小的平方值
         if (movementDeltaSqr <0.0001f)//如果上一帧和当前帧之间的xz平面位移实在太小则忽略
         {

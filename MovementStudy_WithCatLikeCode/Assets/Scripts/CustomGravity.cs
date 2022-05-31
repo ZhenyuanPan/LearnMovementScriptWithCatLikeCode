@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class CustomGravity 
 {
-
+    public static Vector3 gravityOrigin = Vector3.zero;//重心原点, 小行星的中心, 也就是小行星的位置
 
     /// <summary>
     /// 获取自定义重力向量的静态方法
@@ -12,7 +12,7 @@ public static class CustomGravity
     /// <returns></returns>
     public static Vector3 GetGravity(Vector3 position)
     {
-        return position.normalized * Physics.gravity.y;
+        return (position - gravityOrigin).normalized * Physics.gravity.y ;
     }
 
     /// <summary>
@@ -21,7 +21,7 @@ public static class CustomGravity
     /// <returns></returns>
     public static Vector3 GetGravity(Vector3 position , out Vector3 upAxis) 
     {
-        Vector3 up = position.normalized;
+        Vector3 up = (position - gravityOrigin).normalized;
         upAxis = Physics.gravity.y < 0f ? up : -up;
         return up * Physics.gravity.y;
     }
@@ -34,7 +34,7 @@ public static class CustomGravity
     /// <returns></returns>
     public static Vector3 GetUpAxis(Vector3 position)
     {
-        Vector3 up = position.normalized;
+        Vector3 up = (position - gravityOrigin).normalized;
         return Physics.gravity.y < 0f ? up : -up;
     }
 }
